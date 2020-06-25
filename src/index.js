@@ -5,7 +5,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
   var spotLight = new THREE.SpotLight(0xeeece); //adds a spotlight to the scene
     spotLight.position.set(1000, 1000, 1000);
     scene.add(spotLight);
-var spotLight2 = new THREE.SpotLight(0xffffff); //adds a spotlight to the scene
+  var spotLight2 = new THREE.SpotLight(0xffffff); //adds a spotlight to the scene
     spotLight2.position.set(-200, -200, -200);
     scene.add(spotLight2);
 
@@ -17,8 +17,6 @@ var spotLight2 = new THREE.SpotLight(0xffffff); //adds a spotlight to the scene
   );
 
   
-
-
   var renderer = new THREE.WebGLRenderer();
   renderer.setSize(window.innerWidth, window.innerHeight); //size in which we render our app
   document.body.appendChild(renderer.domElement);
@@ -36,24 +34,49 @@ var spotLight2 = new THREE.SpotLight(0xffffff); //adds a spotlight to the scene
    scene.add(sphere);   //adds sphere to the scene to be rendered
 
   //  loops
-  // const generateHoops = () =>{
+ 
 
+    // const radius = 5.9;
+    // const tubeRadius = 1.0;
+    // const radialSegments = 6;
+    // const tubularSegments = 21;
+  
+    // var geometry = new THREE.TorusBufferGeometry(radius, tubeRadius,radialSegments, tubularSegments);
+  
+    // var material = new THREE.MeshPhongMaterial({ //creates a material
+    //   color: 0xdab520,
+    //   specular: 0xbcbabc,
+    // });
+    // var hoop = new THREE.Mesh(geometry, material); // places material over sphere frame
+    // hoop.name = "hoop";
+    // hoop.position.z = -100; //places hoop's starting position in the background
+    // scene.add(hoop);
+var HoopsArray = []
+objectHoop();
+function objectHoop() {
+
+  for (let i = 0; i < 100; i++) {
     const radius = 5.9;
     const tubeRadius = 1.0;
     const radialSegments = 6;
     const tubularSegments = 21;
-  
-    var geometry = new THREE.TorusBufferGeometry(radius, tubeRadius,radialSegments, tubularSegments);
-  
-    var material = new THREE.MeshPhongMaterial({ //creates a material
+    const hoopGeo = new THREE.TorusBufferGeometry(radius, tubeRadius, radialSegments, tubularSegments);
+    const hoopMat = new THREE.MeshPhongMaterial({ //creates a material
       color: 0xdab520,
       specular: 0xbcbabc,
     });
-    var hoop = new THREE.Mesh(geometry, material); // places material over sphere frame
+
+    const hoop = new THREE.Mesh(hoopGeo, hoopMat); // places material over frame
     hoop.name = "hoop";
-    hoop.position.z = -100; //places hoop's starting position in the background
+                    //x  y    z
+    hoop.position.set(0, 0, -15 - i * 50);
+    hoop.receiveShadow = true;
+
     scene.add(hoop);
-  // };
+    HoopsArray.push(hoop);
+  }
+
+}
 
 
 
@@ -103,21 +126,40 @@ var spotLight2 = new THREE.SpotLight(0xffffff); //adds a spotlight to the scene
     //     renderer.render( scene, camera )
     // };
     // generateHoops();
+
+
+// loop that runs every frame to render scene and camera
+  var clock = new THREE.Clock();
+  var time = 0;
+  var delta = 0;
+  var direction = new THREE.Vector3(0, 0, 1);
+  var speed = 100; // units a second - 2 seconds
+
     function render () { //render function rerenders page so that changed update 
-     
-      if (hoop.position.z === 3){
-        scene.remove(hoop);
-      } else {
-        hoop.position.z += .6;
-        
-      }
-      renderer.render( scene, camera );
       requestAnimationFrame(render);
+     
+      delta = clock.getDelta();
+      time += delta;
+
+      HoopsArray.forEach(function (hoop) {
+        hoop.position.addScaledVector(direction, speed * delta);
+        if (hoop.position.z >= 100) {
+          hoop.position.z = -100;
+        } else {
+        }
+      });
+      renderer.render( scene, camera );
     };
-
-  setupKeyControls();
-
-  render();
-// });
-
-
+    
+    setupKeyControls();
+    render();
+    // });
+    
+    
+    
+    // if (hoop.position.z === 3){
+    //   scene.remove(hoop);
+    // } else {
+    //   hoop.position.z += .6;
+      
+    // }
