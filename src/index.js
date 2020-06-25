@@ -25,7 +25,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
     var geometry = new THREE.SphereGeometry(2, 64, 64); //creates a sphere frame
 
     var material = new THREE.MeshPhongMaterial( { //creates a material
-    color: 0xdab520,
+    color: 0xd726ff,
     specular: 0xbcbabc,
     } );
    var sphere = new THREE.Mesh(geometry, material); // places material over sphere frame
@@ -57,19 +57,25 @@ function objectHoop() {
 
   for (let i = 0; i < 100; i++) {
     const radius = 5.9;
-    const tubeRadius = 1.0;
+    const tubeRadius = .5;
     const radialSegments = 6;
     const tubularSegments = 21;
     const hoopGeo = new THREE.TorusBufferGeometry(radius, tubeRadius, radialSegments, tubularSegments);
     const hoopMat = new THREE.MeshPhongMaterial({ //creates a material
-      color: 0xdab520,
+      color: 0x12dbd4,
       specular: 0xbcbabc,
     });
 
     const hoop = new THREE.Mesh(hoopGeo, hoopMat); // places material over frame
     hoop.name = "hoop";
-                    //x  y    z
-    hoop.position.set(0, 0, -15 - i * 50);
+    
+    let num = Math.floor(Math.random() * 45) + 1; // this will get a number for x between 1 and 45;
+    num *= Math.floor(Math.random() * 2) == 1 ? 1 : -1; // this will add minus sign in half of cases
+
+    let num2 = Math.floor(Math.random() * 45) + 1; // this will get a number for y between 1 and 45;
+    num2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1; // this will add minus sign in half of cases
+                    //x    y    z
+    hoop.position.set(num, num2, -15 - i * 500);
     hoop.receiveShadow = true;
 
     scene.add(hoop);
@@ -93,19 +99,19 @@ function objectHoop() {
       document.onkeydown = function (e) {
         switch (e.keyCode) {
           case 37:
-            object.position.x -= 0.7 //left arrow
+            object.position.x -= 1.5 //left arrow
             break;
 
           case 38:
-            object.position.y += 0.7 //up arrow 
+            object.position.y += 1.5 //up arrow 
             break;
 
           case 39:
-            object.position.x += 0.7 //right arrow
+            object.position.x += 1.5 //right arrow
             break;
 
           case 40:
-            object.position.y -= 0.7; //down arrow
+            object.position.y -= 1.5; //down arrow
             break;
 
           case 65:
@@ -144,7 +150,7 @@ function objectHoop() {
       HoopsArray.forEach(function (hoop) {
         hoop.position.addScaledVector(direction, speed * delta);
         if (hoop.position.z >= 100) {
-          hoop.position.z = -100;
+          hoop.position.z = -200;
         } else {
         }
       });
