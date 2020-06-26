@@ -1,6 +1,6 @@
 import "./styles/index.scss";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
+// document.addEventListener("DOMContentLoaded", () => {
   var scene = new THREE.Scene(); //creates a new scene 
   var spotLight = new THREE.SpotLight(0xeeece); //adds a spotlight to the scene
     spotLight.position.set(1000, 1000, 1000);
@@ -21,41 +21,48 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
   renderer.setSize(window.innerWidth, window.innerHeight); //size in which we render our app
   document.body.appendChild(renderer.domElement);
 
+let plane;
+//Plane import
+  var loader = new THREE.GLTFLoader();
+     
+  loader.load('assets/models/f-22_raptor/scene.gltf', function (gltf) {
+   
+   plane = gltf.scene;
+    
+    scene.add(plane);
+    plane.rotation.y += 20.5
+    // plane.position.z = 
+    // plane.scale(Vector3(2,2,2))
+    plane.name = "plane";
+    setupKeyControls(plane);
+    render();
+    
+  }, undefined, function (error) {
 
-    var geometry = new THREE.SphereGeometry(2, 64, 64); //creates a sphere frame
+    console.error(error);
 
-    var material = new THREE.MeshPhongMaterial( { //creates a material
-    color: 0xd726ff,
-    specular: 0xbcbabc,
-    } );
-   var sphere = new THREE.Mesh(geometry, material); // places material over sphere frame
-   sphere.name = "sphere";
-   sphere.position.z = -15;
-   scene.add(sphere);   //adds sphere to the scene to be rendered
+  });
+   
 
-  //  loops
- 
 
-    // const radius = 5.9;
-    // const tubeRadius = 1.0;
-    // const radialSegments = 6;
-    // const tubularSegments = 21;
-  
-    // var geometry = new THREE.TorusBufferGeometry(radius, tubeRadius,radialSegments, tubularSegments);
-  
-    // var material = new THREE.MeshPhongMaterial({ //creates a material
-    //   color: 0xdab520,
-    //   specular: 0xbcbabc,
-    // });
-    // var hoop = new THREE.Mesh(geometry, material); // places material over sphere frame
-    // hoop.name = "hoop";
-    // hoop.position.z = -100; //places hoop's starting position in the background
-    // scene.add(hoop);
+  //   var geometry = new THREE.SphereGeometry(2, 64, 64); //creates a sphere frame
+
+  //   var material = new THREE.MeshPhongMaterial( { //creates a material
+  //   color: 0xd726ff,
+  //   specular: 0xbcbabc,
+  //   } );
+  //  var sphere = new THREE.Mesh(geometry, material); // places material over sphere frame
+  //  sphere.name = "sphere";
+  //  sphere.position.z = -55;
+  //  scene.add(sphere);   //adds sphere to the scene to be rendered
+
+  //  hoops
+
 var HoopsArray = []
 objectHoop();
 function objectHoop() {
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 1000; i++) { //generates random hoops to fly through
     const radius = 5.9;
     const tubeRadius = .5;
     const radialSegments = 6;
@@ -68,21 +75,55 @@ function objectHoop() {
 
     const hoop = new THREE.Mesh(hoopGeo, hoopMat); // places material over frame
     hoop.name = "hoop";
-    
+
     let num = Math.floor(Math.random() * 45) + 1; // this will get a number for x between 1 and 45;
     num *= Math.floor(Math.random() * 2) == 1 ? 1 : -1; // this will add minus sign in half of cases
 
-    let num2 = Math.floor(Math.random() * 45) + 1; // this will get a number for y between 1 and 45;
+    let num2 = Math.floor(Math.random() * 25) + 1; // this will get a number for y between 1 and 25;
     num2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1; // this will add minus sign in half of cases
                     //x    y    z
-    hoop.position.set(num, num2, -15 - i * 500);
+    hoop.position.set(num, num2, -15 - i * 200);
     hoop.receiveShadow = true;
 
     scene.add(hoop);
     HoopsArray.push(hoop);
+    
   }
 
 }
+// var HoopsArray = []
+// objectHoop();
+// function objectHoop() {
+
+//   for (let i = 0; i < 1000; i++) { //generates random hoops to fly through
+//     const radius = 5.9;
+//     const tubeRadius = .5;
+//     const radialSegments = 6;
+//     const tubularSegments = 21;
+//     const hoopGeo = new THREE.TorusBufferGeometry(radius, tubeRadius, radialSegments, tubularSegments);
+//     const hoopMat = new THREE.MeshPhongMaterial({ //creates a material
+//       color: 0x12dbd4,
+//       specular: 0xbcbabc,
+//     });
+
+//     const hoop = new THREE.Mesh(hoopGeo, hoopMat); // places material over frame
+//     hoop.name = "hoop";
+
+//     let num = Math.floor(Math.random() * 45) + 1; // this will get a number for x between 1 and 45;
+//     num *= Math.floor(Math.random() * 2) == 1 ? 1 : -1; // this will add minus sign in half of cases
+
+//     let num2 = Math.floor(Math.random() * 25) + 1; // this will get a number for y between 1 and 25;
+//     num2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1; // this will add minus sign in half of cases
+//                     //x    y    z
+//     hoop.position.set(num, num2, -15 - i * 200);
+//     hoop.receiveShadow = true;
+
+//     scene.add(hoop);
+//     HoopsArray.push(hoop);
+    
+//   }
+
+// }
 
 
 
@@ -93,25 +134,26 @@ function objectHoop() {
 
 
 
-    function setupKeyControls() { //allows keyboard inputs to adjust the location of an object 
-      var object = scene.getObjectByName("sphere");
+    function setupKeyControls(gtfl) { //allows keyboard inputs to adjust the position of an object 
+     
+      var object = scene.getObjectByName(gtfl.name);
 
       document.onkeydown = function (e) {
         switch (e.keyCode) {
           case 37:
-            object.position.x -= 1.5 //left arrow
+            object.position.x -= .1 //left arrow
             break;
 
           case 38:
-            object.position.y += 1.5 //up arrow 
+            object.position.y += .1 //up arrow 
             break;
 
           case 39:
-            object.position.x += 1.5 //right arrow
+            object.position.x += .1 //right arrow
             break;
 
           case 40:
-            object.position.y -= 1.5; //down arrow
+            object.position.y -= .1; //down arrow
             break;
 
           case 65:
@@ -119,12 +161,12 @@ function objectHoop() {
             break;
 
           case 83:
-            object.rotation.z += 0.1; // barrel roll right S key
+            object.rotation.y += 0.1; // barrel roll right S key
             break;
         }
       };
     }
-
+ 
     // function animate () {
     //     requestAnimationFrame( animate ); constant animation to rotate sphere
     //     sphere.rotation.x += 0.01;
@@ -150,22 +192,13 @@ function objectHoop() {
       HoopsArray.forEach(function (hoop) {
         hoop.position.addScaledVector(direction, speed * delta);
         if (hoop.position.z >= 100) {
-          hoop.position.z = -200;
-        } else {
-        }
+          scene.remove(hoop);
+        } 
       });
       renderer.render( scene, camera );
     };
+   
     
-    setupKeyControls();
-    render();
-    // });
-    
-    
-    
-    // if (hoop.position.z === 3){
-    //   scene.remove(hoop);
-    // } else {
-    //   hoop.position.z += .6;
-      
-    // }
+    // setupKeyControls(gtfl);
+    // render();
+// })
