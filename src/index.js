@@ -1,6 +1,7 @@
 import "./styles/index.scss";
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
-// document.addEventListener("DOMContentLoaded", () => {
   var scene = new THREE.Scene(); //creates a new scene 
   var spotLight = new THREE.SpotLight(0xeeece); //adds a spotlight to the scene
     spotLight.position.set(1000, 1000, 1000);
@@ -8,6 +9,10 @@ import "./styles/index.scss";
   var spotLight2 = new THREE.SpotLight(0xffffff); //adds a spotlight to the scene
     spotLight2.position.set(-200, -200, -200);
     scene.add(spotLight2);
+  var spotLight3 = new THREE.AmbientLight(0xffffff); //adds a spotlight to the scene
+    spotLight3.position.set( 0, 5, -10);
+    scene.add(spotLight3);
+ 
 
   var camera = new THREE.PerspectiveCamera( // creates a new camera of type perspective
     75,      // field of view. FOV is the extent of the scene that is seen on the display at any given moment. The value is in degrees.
@@ -21,19 +26,21 @@ import "./styles/index.scss";
   renderer.setSize(window.innerWidth, window.innerHeight); //size in which we render our app
   document.body.appendChild(renderer.domElement);
 
+  //Plane import
 let plane;
-//Plane import
-  var loader = new THREE.GLTFLoader();
+  var loader = new GLTFLoader();
      
-  loader.load('assets/models/f-22_raptor/scene.gltf', function (gltf) {
+loader.load('assets/models/f-22_raptor/scene.gltf', function (gltf) {
    
    plane = gltf.scene;
     
     scene.add(plane);
-    plane.rotation.y += 20.5
-    // plane.position.z = 
-    // plane.scale(Vector3(2,2,2))
+    plane.rotation.y += 20.5;
+    // plane.position.z = -150;
+    // plane.scale(5,.5,.5)
     plane.name = "plane";
+  
+    // // // plane.scale = (1,1,1);
     setupKeyControls(plane);
     render();
     
@@ -42,6 +49,21 @@ let plane;
     console.error(error);
 
   });
+
+  //sky
+var loader = new GLTFLoader();
+
+loader.load('assets/models/ship_in_clouds/scene.gltf', function (gltf) {
+  const sky_background = gltf.scene
+  scene.add(sky_background);
+  sky_background.position.z = 750
+  // sky_background.position.y = -2
+  // sky_background.rotation.y = -4.6
+}, undefined, function (error) {
+
+  console.error(error);
+
+});
    
 
 
@@ -141,19 +163,19 @@ function objectHoop() {
       document.onkeydown = function (e) {
         switch (e.keyCode) {
           case 37:
-            object.position.x -= .1 //left arrow
+            object.position.x -= 10 //left arrow
             break;
 
           case 38:
-            object.position.y += .1 //up arrow 
+            object.position.y += 10 //up arrow 
             break;
 
           case 39:
-            object.position.x += .1 //right arrow
+            object.position.x += 10 //right arrow
             break;
 
           case 40:
-            object.position.y -= .1; //down arrow
+            object.position.y -= 10; //down arrow
             break;
 
           case 65:
@@ -183,7 +205,7 @@ function objectHoop() {
   var direction = new THREE.Vector3(0, 0, 1);
   var speed = 100; // units a second - 2 seconds
 
-    function render () { //render function rerenders page so that changed update 
+    function render () { //render function rerenders page so that changes update 
       requestAnimationFrame(render);
      
       delta = clock.getDelta();
@@ -199,6 +221,3 @@ function objectHoop() {
     };
    
     
-    // setupKeyControls(gtfl);
-    // render();
-// })
