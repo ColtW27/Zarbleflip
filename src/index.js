@@ -163,19 +163,19 @@ function objectHoop() {
       document.onkeydown = function (e) {
         switch (e.keyCode) {
           case 37:
-            object.position.x -= 10 //left arrow
+            object.position.x -= .4 //left arrow
             break;
 
           case 38:
-            object.position.y += 10 //up arrow 
+            object.position.y += .4 //up arrow 
             break;
 
           case 39:
-            object.position.x += 10 //right arrow
+            object.position.x += .4 //right arrow
             break;
 
           case 40:
-            object.position.y -= 10; //down arrow
+            object.position.y -= .4; //down arrow
             break;
 
           case 65:
