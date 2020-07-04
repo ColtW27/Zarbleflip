@@ -40,7 +40,6 @@ loader.load('assets/models/f-22_raptor/scene.gltf', function (gltf) {
     // plane.scale(5,.5,.5)
     plane.name = "plane";
   
-    // // // plane.scale = (1,1,1);
     setupKeyControls(plane);
     render();
     
@@ -113,41 +112,6 @@ function objectHoop() {
   }
 
 }
-// var HoopsArray = []
-// objectHoop();
-// function objectHoop() {
-
-//   for (let i = 0; i < 1000; i++) { //generates random hoops to fly through
-//     const radius = 5.9;
-//     const tubeRadius = .5;
-//     const radialSegments = 6;
-//     const tubularSegments = 21;
-//     const hoopGeo = new THREE.TorusBufferGeometry(radius, tubeRadius, radialSegments, tubularSegments);
-//     const hoopMat = new THREE.MeshPhongMaterial({ //creates a material
-//       color: 0x12dbd4,
-//       specular: 0xbcbabc,
-//     });
-
-//     const hoop = new THREE.Mesh(hoopGeo, hoopMat); // places material over frame
-//     hoop.name = "hoop";
-
-//     let num = Math.floor(Math.random() * 45) + 1; // this will get a number for x between 1 and 45;
-//     num *= Math.floor(Math.random() * 2) == 1 ? 1 : -1; // this will add minus sign in half of cases
-
-//     let num2 = Math.floor(Math.random() * 25) + 1; // this will get a number for y between 1 and 25;
-//     num2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1; // this will add minus sign in half of cases
-//                     //x    y    z
-//     hoop.position.set(num, num2, -15 - i * 200);
-//     hoop.receiveShadow = true;
-
-//     scene.add(hoop);
-//     HoopsArray.push(hoop);
-    
-//   }
-
-// }
-
-
 
   camera.position.z = 3; //moves camera so that sphere isnt rendered at the same point as the camera
   camera.position.y = 1;
@@ -163,19 +127,19 @@ function objectHoop() {
       document.onkeydown = function (e) {
         switch (e.keyCode) {
           case 37:
-            object.position.x -= .4 //left arrow
+            object.position.x -= .2 //left arrow
             break;
 
           case 38:
-            object.position.y += .4 //up arrow 
+            object.position.y += .2 //up arrow 
             break;
 
           case 39:
-            object.position.x += .4 //right arrow
+            object.position.x += .2 //right arrow
             break;
 
           case 40:
-            object.position.y -= .4; //down arrow
+            object.position.y -= .42 //down arrow
             break;
 
           case 65:
