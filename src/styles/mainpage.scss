@@ -1,3 +1,13 @@
 .personal-links {
-  color: red;
+    display: flex;
+    justify-content: space-evenly;
+  background-color: rgb(153, 51, 127);
+
+  a {
+      margin: 50px;
+      font-size: 30px;
+      text-decoration: none;
+      color: skyblue;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  }
 }

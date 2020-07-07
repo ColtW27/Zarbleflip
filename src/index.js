@@ -36,8 +36,6 @@ loader.load('assets/models/f-22_raptor/scene.gltf', function (gltf) {
     
     scene.add(plane);
     plane.rotation.y += 20.5;
-    // plane.position.z = -150;
-    // plane.scale(5,.5,.5)
     plane.name = "plane";
   
     setupKeyControls(plane);
@@ -56,8 +54,6 @@ loader.load('assets/models/ship_in_clouds/scene.gltf', function (gltf) {
   const sky_background = gltf.scene
   scene.add(sky_background);
   sky_background.position.z = 750
-  // sky_background.position.y = -2
-  // sky_background.rotation.y = -4.6
 }, undefined, function (error) {
 
   console.error(error);
@@ -125,6 +121,7 @@ function objectHoop() {
       var object = scene.getObjectByName(gtfl.name);
 
       document.onkeydown = function (e) {
+        e.preventDefault();
         switch (e.keyCode) {
           case 37:
             object.position.x -= .2 //left arrow
