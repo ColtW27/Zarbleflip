@@ -2,6 +2,7 @@ import "./styles/index.scss";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
+
   var scene = new THREE.Scene(); //creates a new scene 
   var spotLight = new THREE.SpotLight(0xeeece); //adds a spotlight to the scene
     spotLight.position.set(1000, 1000, 1000);
@@ -35,8 +36,9 @@ loader.load('assets/models/f-22_raptor/scene.gltf', function (gltf) {
    plane = gltf.scene;
     
     scene.add(plane);
-    plane.rotation.y += 20.5;
+    plane.rotation.y = 20.5;
     plane.name = "plane";
+    plane.position.z = -2;
   
     setupKeyControls(plane);
     render();
@@ -124,15 +126,15 @@ function objectHoop() {
         e.preventDefault();
         switch (e.keyCode) {
           case 37:
-            object.position.x -= .2 //left arrow
+            object.position.x -= .42 //left arrow
             break;
 
           case 38:
-            object.position.y += .2 //up arrow 
+            object.position.y += .42 //up arrow 
             break;
 
           case 39:
-            object.position.x += .2 //right arrow
+            object.position.x += .42 //right arrow
             break;
 
           case 40:
@@ -140,11 +142,12 @@ function objectHoop() {
             break;
 
           case 65:
-            object.rotation.z -= 0.1; // barrel roll left A key
+            object.rotation.z -= 0.7; // barrel roll left A key
             break;
 
           case 83:
-            object.rotation.y += 0.1; // barrel roll right S key
+            object.rotation.y += 0.5;
+            // object.rotation.z -= 0.5; // barrel roll right S key
             break;
         }
       };
@@ -166,7 +169,7 @@ function objectHoop() {
   var direction = new THREE.Vector3(0, 0, 1);
   var speed = 100; // units a second - 2 seconds
 
-    function render () { //render function rerenders page so that changes update 
+   function render () { //render function rerenders page so that changes update 
       requestAnimationFrame(render);
      
       delta = clock.getDelta();
