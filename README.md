@@ -3,3 +3,7 @@
 
 #### View Zarbleflip here:
 https://coltw27.github.io/Zarbleflip/
+
+### Zarbleflip is a game that allows users to:
+* Pilot a fighter jet through obstacles
+### Gameplay 
