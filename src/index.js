@@ -168,7 +168,7 @@ function objectHoop() {
   var delta = 0;
   var direction = new THREE.Vector3(0, 0, 1);
   var speed = 100; // units a second - 2 seconds
-
+ 
    function render () { //render function rerenders page so that changes update 
       requestAnimationFrame(render);
      
@@ -184,4 +184,4 @@ function objectHoop() {
       renderer.render( scene, camera );
     };
    
-    
+
