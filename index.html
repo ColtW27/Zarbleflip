@@ -15,13 +15,13 @@
 			body { margin: 0; }
 			canvas { display: block; }
         </style>
+        <script type="text/javascript" src="./src/index.js"></script>
         
 </head>
 <body>
   
     <script src="./dist/main.js"></script>
-    
-    <!-- <button onclick={render()}>Start</button> -->
+    <button onclick={render()} value="run external javascript">Start</button>
     <div class="personal-links">
         <label for="github-link">
           <a href="https://github.com/ColtW27" target="_blank">Github</a>
@@ -52,6 +52,7 @@
         <br>
         Right: Right Arrow
     </div>
+    <button onClick={render()}></button>
 <footer> ©2020 Colton Wilmouth</footer>
 </body>
 </html> 

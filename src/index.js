@@ -48,7 +48,7 @@ loader.load('assets/models/f-22_raptor/scene.gltf', function (gltf) {
     console.error(error);
 
   });
-<button onClick={render()}></button>
+
   //sky
 var loader = new GLTFLoader();
 
