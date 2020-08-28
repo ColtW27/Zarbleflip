@@ -41,7 +41,7 @@ loader.load('assets/models/f-22_raptor/scene.gltf', function (gltf) {
   plane.position.z = -2;
 
   setupKeyControls(plane);
-  // render();
+  render();
     
   }, undefined, function (error) {
 
@@ -62,18 +62,16 @@ loader.load('assets/models/ship_in_clouds/scene.gltf', function (gltf) {
 
 });
    
+//   var geometry = new THREE.SphereGeometry(2, 64, 64); //creates a sphere frame
 
-
-  //   var geometry = new THREE.SphereGeometry(2, 64, 64); //creates a sphere frame
-
-  //   var material = new THREE.MeshPhongMaterial( { //creates a material
-  //   color: 0xd726ff,
-  //   specular: 0xbcbabc,
-  //   } );
-  //  var sphere = new THREE.Mesh(geometry, material); // places material over sphere frame
-  //  sphere.name = "sphere";
-  //  sphere.position.z = -55;
-  //  scene.add(sphere);   //adds sphere to the scene to be rendered
+//   var material = new THREE.MeshPhongMaterial( { //creates a material
+//   color: 0xd726ff,
+//   specular: 0xbcbabc,
+//   } );
+//  var sphere = new THREE.Mesh(geometry, material); // places material over sphere frame
+//  sphere.name = "sphere";
+//  sphere.position.z = -55;
+//  scene.add(sphere);   //adds sphere to the scene to be rendered
 
 //  hoops
 var HoopsArray = []
@@ -114,53 +112,49 @@ function objectHoop() {
   camera.position.y = 1;
 
 
-
-
-
-    function setupKeyControls(gtfl) { //allows keyboard inputs to adjust the position of an object 
+function setupKeyControls(gtfl) { //allows keyboard inputs to adjust the position of an object 
      
-      var object = scene.getObjectByName(gtfl.name);
+  var object = scene.getObjectByName(gtfl.name);
 
-      document.onkeydown = function (e) {
-        e.preventDefault();
-        switch (e.keyCode) {
-          case 37:
-            object.position.x -= .42 //left arrow
-            break;
+  document.onkeydown = function (e) {
+    e.preventDefault();
+    switch (e.keyCode) {
+      case 37:
+        object.position.x -= .42 //left arrow
+        break;
 
-          case 38:
-            object.position.y += .42 //up arrow 
-            break;
+      case 38:
+        object.position.y += .42 //up arrow 
+        break;
 
-          case 39:
-            object.position.x += .42 //right arrow
-            break;
+      case 39:
+        object.position.x += .42 //right arrow
+        break;
 
-          case 40:
-            object.position.y -= .42 //down arrow
-            break;
+      case 40:
+        object.position.y -= .42 //down arrow
+        break;
 
-          case 65:
-            object.rotation.z -= 0.7; // barrel roll left A key
-            break;
+      case 65:
+        object.rotation.z -= 0.7; // barrel roll left A key
+        break;
 
-          case 83:
-            object.rotation.y += 0.5;
-            // object.rotation.z -= 0.5; // barrel roll right S key
-            break;
-        }
-      };
+      case 83:
+        object.rotation.y += 0.5;
+        // object.rotation.z -= 0.5; // barrel roll right S key
+        break;
     }
+  };
+}
  
-    // function animate () {
-    //     requestAnimationFrame( animate ); constant animation to rotate sphere
-    //     sphere.rotation.x += 0.01;
-    //     sphere.rotation.y += 0.01;
-    //     renderer.render( scene, camera )
-    // };
-    // generateHoops();
+// function animate () {
+//     requestAnimationFrame( animate ); constant animation to rotate sphere
+//     sphere.rotation.x += 0.01;
+//     sphere.rotation.y += 0.01;
+//     renderer.render( scene, camera )
+// };
 
-
+// generateHoops();
 // loop that runs every frame to render scene and camera
 var clock = new THREE.Clock();
 var time = 0;
@@ -168,7 +162,7 @@ var delta = 0;
 var direction = new THREE.Vector3(0, 0, 1);
 var speed = 100; // units a second - 2 seconds
 
-function render () { //render function rerenders page so that changes update 
+function render() { //render function rerenders page so that changes update 
   requestAnimationFrame(render);
   
   delta = clock.getDelta();
