@@ -3,29 +3,29 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 
-  var scene = new THREE.Scene(); //creates a new scene 
-  var spotLight = new THREE.SpotLight(0xeeece); //adds a spotlight to the scene
-    spotLight.position.set(1000, 1000, 1000);
-    scene.add(spotLight);
-  var spotLight2 = new THREE.SpotLight(0xffffff); //adds a spotlight to the scene
-    spotLight2.position.set(-200, -200, -200);
-    scene.add(spotLight2);
-  var spotLight3 = new THREE.AmbientLight(0xffffff); //adds a spotlight to the scene
-    spotLight3.position.set( 0, 5, -10);
-    scene.add(spotLight3);
- 
+var scene = new THREE.Scene(); //creates a new scene 
+var spotLight = new THREE.SpotLight(0xeeece); //adds a spotlight to the scene
+  spotLight.position.set(1000, 1000, 1000);
+  scene.add(spotLight);
+var spotLight2 = new THREE.SpotLight(0xffffff); //adds a spotlight to the scene
+  spotLight2.position.set(-200, -200, -200);
+  scene.add(spotLight2);
+var spotLight3 = new THREE.AmbientLight(0xffffff); //adds a spotlight to the scene
+  spotLight3.position.set( 0, 5, -10);
+  scene.add(spotLight3);
 
-  var camera = new THREE.PerspectiveCamera( // creates a new camera of type perspective
-    75,      // field of view. FOV is the extent of the scene that is seen on the display at any given moment. The value is in degrees.
-    window.innerWidth / window.innerHeight, // aspect ratio. You almost always want to use the width of the element divided by the height
-    0.1, //near clipping plane
-    1000 //far clipping plane
-  );
+
+var camera = new THREE.PerspectiveCamera( // creates a new camera of type perspective
+  75,      // field of view. FOV is the extent of the scene that is seen on the display at any given moment. The value is in degrees.
+  window.innerWidth / window.innerHeight, // aspect ratio. You almost always want to use the width of the element divided by the height
+  0.1, //near clipping plane
+  1000 //far clipping plane
+);
 
   
-  var renderer = new THREE.WebGLRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight); //size in which we render our app
-  document.body.appendChild(renderer.domElement);
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight); //size in which we render our app
+document.body.appendChild(renderer.domElement);
 
   //Plane import
 let plane;
@@ -33,15 +33,15 @@ let plane;
      
 loader.load('assets/models/f-22_raptor/scene.gltf', function (gltf) {
    
-   plane = gltf.scene;
-    
-    scene.add(plane);
-    plane.rotation.y = 20.5;
-    plane.name = "plane";
-    plane.position.z = -2;
+  plane = gltf.scene;
   
-    setupKeyControls(plane);
-    // render();
+  scene.add(plane);
+  plane.rotation.y = 20.5;
+  plane.name = "plane";
+  plane.position.z = -2;
+
+  setupKeyControls(plane);
+  // render();
     
   }, undefined, function (error) {
 
@@ -49,7 +49,7 @@ loader.load('assets/models/f-22_raptor/scene.gltf', function (gltf) {
 
   });
 
-  //sky
+//sky
 var loader = new GLTFLoader();
 
 loader.load('assets/models/ship_in_clouds/scene.gltf', function (gltf) {
@@ -75,8 +75,7 @@ loader.load('assets/models/ship_in_clouds/scene.gltf', function (gltf) {
   //  sphere.position.z = -55;
   //  scene.add(sphere);   //adds sphere to the scene to be rendered
 
-  //  hoops
-
+//  hoops
 var HoopsArray = []
 objectHoop();
 function objectHoop() {
@@ -163,25 +162,25 @@ function objectHoop() {
 
 
 // loop that runs every frame to render scene and camera
-  var clock = new THREE.Clock();
-  var time = 0;
-  var delta = 0;
-  var direction = new THREE.Vector3(0, 0, 1);
-  var speed = 100; // units a second - 2 seconds
- 
-   function render () { //render function rerenders page so that changes update 
-      requestAnimationFrame(render);
-     
-      delta = clock.getDelta();
-      time += delta;
+var clock = new THREE.Clock();
+var time = 0;
+var delta = 0;
+var direction = new THREE.Vector3(0, 0, 1);
+var speed = 100; // units a second - 2 seconds
 
-      HoopsArray.forEach(function (hoop) {
-        hoop.position.addScaledVector(direction, speed * delta);
-        if (hoop.position.z >= 100) {
-          scene.remove(hoop);
-        } 
-      });
-      renderer.render( scene, camera );
-    };
+function render () { //render function rerenders page so that changes update 
+  requestAnimationFrame(render);
+  
+  delta = clock.getDelta();
+  time += delta;
+
+  HoopsArray.forEach(function (hoop) {
+    hoop.position.addScaledVector(direction, speed * delta);
+    if (hoop.position.z >= 100) {
+      scene.remove(hoop);
+    } 
+  });
+  renderer.render( scene, camera );
+};
    
 
