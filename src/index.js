@@ -41,14 +41,14 @@ loader.load('assets/models/f-22_raptor/scene.gltf', function (gltf) {
     plane.position.z = -2;
   
     setupKeyControls(plane);
-    render();
+    // render();
     
   }, undefined, function (error) {
 
     console.error(error);
 
   });
-
+<button onClick={render()}></button>
   //sky
 var loader = new GLTFLoader();
 
