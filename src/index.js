@@ -157,7 +157,7 @@ function setupKeyControls(gtfl) { //allows keyboard inputs to adjust the positio
 // generateHoops();
 // loop that runs every frame to render scene and camera
 var clock = new THREE.Clock();
-// var time = 0;
+var time = 0;
 var delta = 0;
 var direction = new THREE.Vector3(0, 0, 1);
 var speed = 100; // units a second - 2 seconds
