@@ -34,8 +34,7 @@ footer {
 .start-button{
     width: 100%;
     background-color: skyblue;
-    transition-property: font-size;
-    transition: font-size 2s ease-in-out;
+    transition: font-size 1s ease-in-out;
 }
 .start-button:hover{
   font-size: larger;
