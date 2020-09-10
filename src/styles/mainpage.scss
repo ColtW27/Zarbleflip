@@ -32,5 +32,10 @@ footer {
 
 }
 .start-button{
-    width: 100%
+    width: 100%;
+    background-color: skyblue;
+}
+.start-button:hover{
+  background-color: red;
+  color: white;
 }
